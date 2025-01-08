@@ -1,12 +1,24 @@
  // tailwind.config.js
  module.exports = { 
-  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
-   darkMode: false, // or 'media' or 'class'
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+   darkMode: "media", // or 'media' or 'class'
    theme: {
-     extend: {},
+     extend: {
+      backgroundImage: {
+        'custom-gradient': 'linear-gradient(to right, #a64eee, #3c35ce)',
+      }, 
+      backgroundColor: {
+        "btn-yellow" : "#fdae5c"
+      },
+      Color: {
+        "hover-color" : "#c4eac8"
+      }
+     },
    },
    variants: {
-     extend: {},
+     extend: {
+      
+     },
    },
    plugins: [],
  }
