@@ -20,22 +20,22 @@
 </script>
 
 <template>
-    <header class="h-20 w-full bg-custom-gradient px-1 py-1 flex justify-between items-center relative md:px-2 lg:px-5" >
+    <header class="h-20 w-full bg-custom-gradient px-1 py-1 flex justify-between items-center relative md:px-2 lg:px-5 z-10" >
         <div class="h-full flex justify-start items-center">
-            <a href="/" class="transition-opacity duration-300 h-full hover:opacity-65 " >
+            <router-link :to="{name: 'home'}"  class="transition-opacity duration-300 h-full hover:opacity-65 " >
                 <img class="h-full" src="/src/assets/img/logo.png" alt="accrodev movies logo">
-            </a> 
+            </router-link> 
             <div class="ml-2 headerTitle">
                 <h2 class="text-white  text-3xl accrodev-title">AccroDev</h2>
                 <h4 class="text-white opacity-65 text-base movie-title">Movies</h4>
             </div>
         </div> 
-        <nav :class="NavClassAnimation" class="transition-all duration-300 flex-col absolute top-20 left-0 right-0 w-full p-2 justify-between bg-custom-gradient sm:flex-row md:static md:w-max md:p-0 md:bg-none overflow-hidden border-t border-t-slate-100/50 md:border-none" >
-            <a href="/" class="my-1 w-max  transition-colors duration-300 text-white mr-2 hover:text-[#c4eac8] hover:border-b-2 hover:border-[#c4eac8]"> <i class="fas fa-" ></i> Tutoriels </a>
-            <a href="/" class="my-1 w-max  transition-colors duration-300 text-white mr-2 hover:text-[#c4eac8] hover:border-b-2 hover:border-[#c4eac8]"> <i class="fas fa-" ></i> Articles </a>
-            <a href="/" class="my-1 w-max  transition-colors duration-300 text-white mr-2 hover:text-[#c4eac8] hover:border-b-2 hover:border-[#c4eac8]"> <i class="fas fa-" ></i> Models </a>
-            <a href="/" class="my-1 w-max  transition-colors duration-300 text-white mr-2 hover:text-[#c4eac8] hover:border-b-2 hover:border-[#c4eac8]"> <i class="fas fa-" ></i> Boutiques </a>
-            <a href="/" class="my-1 w-max  transition-colors duration-300 text-white mr-2 hover:text-[#c4eac8] hover:border-b-2 hover:border-[#c4eac8]"> <i class="fas fa-" ></i> Formations </a>
+        <nav :class="NavClassAnimation" class="transition-all duration-300 flex-col absolute top-20 left-0 right-0 w-full p-2 justify-between bg-custom-gradient sm:flex-row md:static md:w-max md:p-0 md:bg-none overflow-hidden border-t border-t-slate-100/50 md:border-none" > 
+            <router-link :to="{name: 'search'}" class="my-1 w-max  transition-colors duration-300 text-white mr-2 hover:text-[#c4eac8] hover:border-b-2 hover:border-[#c4eac8]"><i class="fas fa-search" style="width: 14px;font-size: 14px;"></i> Réchercher </router-link>
+            <a href="/" class="my-1 w-max  transition-colors duration-300 text-white mr-2 hover:text-[#c4eac8] hover:border-b-2 hover:border-[#c4eac8]"><i class="fas fa-align-left" style="width: 14px;font-size: 14px;"></i> Articles </a>
+            <a href="/" class="my-1 w-max  transition-colors duration-300 text-white mr-2 hover:text-[#c4eac8] hover:border-b-2 hover:border-[#c4eac8]"><i class="fas fa-file-archive" style="width: 14px;font-size: 14px;"></i> Models </a>
+            <a href="/" class="my-1 w-max  transition-colors duration-300 text-white mr-2 hover:text-[#c4eac8] hover:border-b-2 hover:border-[#c4eac8]"><i class="fas fa-shopping-cart" style="width: 14px;font-size: 14px;"></i> Boutiques </a>
+            <a href="/" class="my-1 w-max  transition-colors duration-300 text-white mr-2 hover:text-[#c4eac8] hover:border-b-2 hover:border-[#c4eac8] hiddenMenuTablette"><i class="fas fa-book" style="width: 14px;font-size: 14px;"></i> Formations </a>
         </nav>
         <div class="flex justify-center items-center">
             <div class="rounded-full h-6 w-6 overflow-hidden mr-2">
@@ -96,6 +96,12 @@
             padding: 4px; 
         }
     } 
+
+    @media screen and (min-width: 768px) and (max-width: 900px) {
+        .hiddenMenuTablette {
+            display: none;
+        }
+    }
     @media screen and (max-width: 350px) { 
         .accrodev-title{
             font-size: 1.2rem;

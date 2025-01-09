@@ -6,6 +6,7 @@
      extend: {
       backgroundImage: {
         'custom-gradient': 'linear-gradient(to right, #a64eee, #3c35ce)',
+        'cardmovie-gradient': 'linear-gradient(to top, #ffffff, #ffffff , #ffffff, transparent)',
       }, 
       backgroundColor: {
         "btn-yellow" : "#fdae5c"

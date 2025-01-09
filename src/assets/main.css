@@ -1,5 +1,10 @@
+@import "./carousel.css";
 /* ./src/index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
  
+body {
+    background-color: #e7eaeb;
+}
