@@ -38,9 +38,9 @@
             <a href="/" class="my-1 w-max  transition-colors duration-300 text-white mr-2 hover:text-[#c4eac8] hover:border-b-2 hover:border-[#c4eac8] hiddenMenuTablette"><i class="fas fa-book" style="width: 14px;font-size: 14px;"></i> Formations </a>
         </nav>
         <div class="flex justify-center items-center">
-            <div class="rounded-full h-6 w-6 overflow-hidden mr-2">
+            <router-link :to="{name: 'profil'}" class="block rounded-full h-6 w-6 overflow-hidden mr-2">
                 <img src="/src/assets/img/user.jpg" class="w-full" alt="">
-            </div>
+            </router-link>
             <div class="rounded-md bg-btn-yellow px-2 py-1 hidden md:block" >
                 <button class="text-white font-semibold">+257 66478279</button>
             </div>
