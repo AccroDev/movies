@@ -18,6 +18,11 @@ const router = createRouter({
       path: '/profil',
       name : 'profil', 
       component: () => import('../views/ProfilView.vue'),
+    },
+    {
+      path : '/:catchAll(.*)',
+      name : 'e404',
+      component : () => import('../views/e404.vue'),
     }
   ],
 })
