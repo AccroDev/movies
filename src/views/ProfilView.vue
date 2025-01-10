@@ -22,7 +22,7 @@
     </section> 
     <MyShops />
     <HistoryComponent />
-
+    <router-view></router-view>
 </template>
 
 <style>

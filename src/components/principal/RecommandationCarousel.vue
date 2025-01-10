@@ -4,8 +4,7 @@
     import { onMounted } from "vue";
 
     
-    onMounted(() => {
-        console.log(document.getElementById("recommandation"));
+    onMounted(() => { 
         new Carousel(document.getElementById("recommandation"),{
             slidesToScroll : 1,
             slidesVisible : 1,
@@ -18,7 +17,8 @@
 </script>
 
 <template>
-    <div class="w-full mx-auto sm:w-[620px] md:w-[684px]" id="recommandation">
+    <!-- sm:w-[620px] md:max-w-[701px] md:w-[684px] -->
+    <div class="w-full mx-auto sm:w-[95%] sm:max-w-[95%] md:max-w-[701px] md:w-[701px]" id="recommandation">
         <CarouselCard />
         <CarouselCard />
         <CarouselCard />

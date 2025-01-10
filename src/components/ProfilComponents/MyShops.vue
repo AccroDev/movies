@@ -9,7 +9,7 @@
             <ShopCard src="/src/assets/img/user.jpg" />
             <ShopCard src="/src/assets/img/edition.webp" />
         </div>
-        <button class="text-white bg-blue-500 rounded-md px-2 py-1 my-2 hover:opacity-85 transition-opacity duration-300" > <i class="fas fa-plus" ></i> Créer Une Boutique </button>
+        <button class="text-white bg-blue-500 rounded-md px-2 py-1 my-2 hover:opacity-85 transition-opacity duration-300 w-full max-w-72 min-h-12 text-xl " > <i class="fas fa-plus" ></i> Créer Une Boutique </button>
     </section>
 </template>
 

@@ -8,11 +8,12 @@
 
 <template>
     <HeaderComponent /> 
-    <section class="max-w-3xl mx-auto mb-72" >
+    <section class="max-w-[716px] mx-auto mb-72" >
         <!-- Bar de Recherche -->
         <SearchBar /> 
         <SearchResult /> 
         <SearchOtherResult />  
         <SearchTMDB />  
     </section>
+    <router-view></router-view>
 </template>

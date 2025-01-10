@@ -30,7 +30,7 @@
 </script>
 
 <template>
-    <section class="bg-white w-full max-w-2xl min-h-30 ml-auto mr-auto p-2 flex flex-col my-2 filterSection">
+    <section class="bg-white w-full sm:max-w-[95%] md:max-w-[701px] min-h-30 ml-auto mr-auto p-2 flex flex-col my-2 filterSection">
         <div class="flex justify-between my-2 mx-1 w-full h-max " >
             <div>
                 <h3 class="w-max font-bold text-xl border-b-4 border-[#fdae5c]" >Filtres</h3>
@@ -46,7 +46,7 @@
         </div>
 
         <div class="flex justify-start my-2 flex-wrap  filtersContainer">
-            <div class="border border-[#feebd6] rounded-md h-10 w-44 flex justify-start items-center p-1 ml-2 mt-2 relative filterItem" @click="ToggleTown('town')" >
+            <div class="border border-[#feebd6] rounded-md h-12 w-[45%] sm:w-44 flex justify-start items-center p-1 ml-2 mt-2 relative filterItem" @click="ToggleTown('town')" >
                 <div class="border border-[#feebd6] rounded-full h-8 w-8 flex justify-center items-center">
                     <i class="fas fa-map-marker-alt" ></i>
                 </div>
@@ -61,7 +61,7 @@
                     <li class="rounded-sm hover:font-semibold py-1 text-xs px-1 cursor-pointer hover:bg-[#e9d5c1]" >Minova</li>
                 </ul>
             </div> 
-            <div class="border border-[#feebd6] rounded-md h-10 w-44 flex justify-start items-center p-1 ml-2 mt-2 relative filterItem" @click="ToggleTown('shops')">
+            <div class="border border-[#feebd6] rounded-md h-12 w-[45%] sm:w-44 flex justify-start items-center p-1 ml-2 mt-2 relative filterItem" @click="ToggleTown('shops')">
                 <div class="border border-[#feebd6] rounded-full h-8 w-8 flex justify-center items-center">
                     <i class="fas fa-house" ></i>
                 </div>
@@ -76,7 +76,7 @@
                     <li class="rounded-sm hover:font-semibold py-1 text-xs px-1 cursor-pointer hover:bg-[#e9d5c1]" >lorem ipsum</li>
                 </ul>
             </div> 
-            <div class="border border-[#feebd6] rounded-md h-10 w-44 flex justify-start items-center p-1 ml-2 mt-2 relative filterItem" @click="ToggleTown('type')" >
+            <div class="border border-[#feebd6] rounded-md h-12 w-[45%] sm:w-44 flex justify-start items-center p-1 ml-2 mt-2 relative filterItem" @click="ToggleTown('type')" >
                 <div class="border border-[#feebd6] rounded-full h-8 w-8 flex justify-center items-center">
                     <i class="fas fa-video" ></i>
                 </div>
@@ -89,7 +89,7 @@
                     <li class="rounded-sm hover:font-semibold py-1 text-xs px-1 cursor-pointer hover:bg-[#e9d5c1]" >Films</li> 
                 </ul>
             </div> 
-            <div class="border border-[#feebd6] bg-[#feebd6] rounded-md h-10 w-44 flex justify-center items-center p-1 ml-2 mt-2 cursor-pointer filterItem" >
+            <div class="border border-[#feebd6] bg-[#feebd6] rounded-md h-12 w-[45%] sm:w-44 flex justify-center items-center p-1 ml-2 mt-2 cursor-pointer filterItem" >
                 <h5 class="text-base filterTitle ">Appliquer</h5>  
             </div> 
            
@@ -107,10 +107,7 @@
     @media screen and (max-width: 390px) {
        .filtersContainer{
             justify-content: center;
-       } 
-       .filterItem{
-            width: 130px;
-       }
+       }  
        .filterTitle{
         font-size: 12px;
         line-height: 12px;

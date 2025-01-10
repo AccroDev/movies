@@ -10,4 +10,5 @@
     <RecommandationCarousel />
     <FiltersComponent />
     <DisplayMovies />
+    <router-view></router-view>
 </template>

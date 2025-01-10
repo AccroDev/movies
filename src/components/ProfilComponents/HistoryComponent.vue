@@ -11,6 +11,7 @@
             <MoviesCard></MoviesCard>
             <MoviesCard></MoviesCard>
             <MoviesCard></MoviesCard>
+            <MoviesCard></MoviesCard>
         </div>
     </section> 
 </template>

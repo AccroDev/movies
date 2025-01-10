@@ -1,12 +1,12 @@
 <script setup>
-    
+    import { RouterLink } from 'vue-router';
 </script>
 
 <template>
-    <div class="w-full -mb-3 sm:w-2/5 md:w-max sm:px-1">
-        <div class="w-full h-auto bg-blue-200 cursor-pointer overflow-hidden" >
+    <div class="w-full -mb-3 sm:w-1/2  md:w-max sm:px-1 overflow-hidden rounded-t-md">
+        <router-link :to="{name : 'description', params : { slug : 'lorem', id : 12}}" class="block w-full h-auto bg-blue-200 cursor-pointer overflow-hidden" >
             <img src="/src/assets/img/1R68vl3d5s86JsS2NPjl8UoMqIS.jpg" class="w-full hover:scale-110 transition-transform duration-300" alt="">
-        </div>
+        </router-link>
         <div class="px-1 sm:px-2 py-1 -translate-y-5 bg-cardmovie-gradient h-14 flex justify-between items-center">
             <div class="titleBlock" >
                 <div class="flex items-center w-full">
@@ -17,7 +17,7 @@
             </div>
             <div class="px-2 py-1 w-16 h-6 bg-custom-gradient rounded-full flex justify-center items-center text-white cursor-pointer hover:scale-105 transition-transform duration-300">
                 <i class="fas fa-heart"></i>
-                <strong class="ml-1" >200</strong>
+                <strong class="ml-1" >200</strong>  
             </div>
         </div>
     </div>
