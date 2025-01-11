@@ -9,7 +9,7 @@
             <p class="text-center text-xs opacity-65 w-1/2">Vous recherchez un Film ou une serie à regarder ? Faites vous plaisir...</p>
         </div>
         <div class="flex justify-center" ><!-- w-full -mb-3 sm:w-2/5 md:w-max sm:px-1 -->
-            <div class="mx-1 flex flex-wrap justify-center sm:justify-start sm:max-w-[95%] md:max-w-[701px] "> 
+            <div class="mx-1 flex flex-wrap justify-center sm:justify-start sm:max-w-[95%] md:max-w-[701px] max-w-full"> 
                 <MoviesCard />
                 <MoviesCard />
                 <MoviesCard />

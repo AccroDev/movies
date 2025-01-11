@@ -35,16 +35,38 @@ const router = createRouter({
         {
           path: ':slug-:id(\\d+)',
           name: 'profilDescription',
-          component: () => import('../views/Modals/DescriptionMovie.vue'),
+          component: () => import('../views/Modals/DescriptionMovie.vue') 
         }
       ]
+    },
+    {
+      path : '/login',
+      name : 'login',
+      component : () => import('../views/auth/LoginView.vue'),
+    },
+    {
+      path : '/signin',
+      name : 'signin',
+      component : () => import('../views/auth/SigninView.vue'),
     },
     {
       path : '/:catchAll(.*)',
       name : 'e404',
       component : () => import('../views/e404.vue'),
-    }
+    },
   ],
+})
+const MovieModalPathName = ['description',"profilDescription","searchDescription"]
+router.beforeEach((to,from,next) => {
+  if (MovieModalPathName.includes(from.name)) {
+    const modal = document.querySelector('.descriptModal') 
+    modal && modal.classList.add('modal-leave-active')
+    setTimeout(()=> {
+      next();
+    },300)
+  }else{
+    next()
+  }
 })
 
 export default router
