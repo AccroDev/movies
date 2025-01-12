@@ -4,7 +4,7 @@
     import { ref } from 'vue';
     
     const MoviesStore = useMoviesStore();
-    const ShopsIsSelected = ref(true);
+    const ShopsIsSelected = ref(false);
 
     const PathIsShow = ref(false); 
 </script>
@@ -16,19 +16,19 @@
             <div v-if="ShopsIsSelected" class="pl-2 flex items-center justify-start" >
 
                 <!-- add this movie on shop selected -->
-                <button v-if="true" class="bg-[#fdae5c] rounded-full px-2 py-[1px] text-[10px]" >Ajouter</button>
+                <button v-if="true" class="bg-[#fdae5c] rounded-full px-2 py-[1px] text-xs flex items-center justify-center" >Ajouter</button>
 
                 <!-- remove this movie on shop selected -->
-                <button v-else class="bg-[#fdae5c] rounded-full px-2 py-[1px] text-[10px]" >Supp.</button>
+                <button v-else class="bg-[#fdae5c] rounded-full px-2 py-[1px] text-xs flex items-center justify-center" >Supp.</button>
 
             </div>
 
             <div class="pr-2 flex justify-end items-center w-full" >
                 <!-- show path where found this movies on shop selected -->
-                <button v-if="ShopsIsSelected" @click="PathIsShow = !PathIsShow" :class="PathIsShow ? 'w-2/4 justify-between' : 'w-4 justify-center'" class="bg-[#fdae5c] rounded-full px-2 py-[1px] text-[10px] h-4 flex items-center transition-all duration-300 overflow-hidden whitespace-nowrap text-ellipsis"> {{ PathIsShow ? 'Mon DiskDur' : '' }} <i class="fas" :class="PathIsShow ? 'fa-plus rotate-45' : 'fa-check' " ></i> </button>
+                <button v-if="ShopsIsSelected" @click="PathIsShow = !PathIsShow" :class="PathIsShow ? 'w-2/4 justify-between' : 'w-6 justify-center'" class="bg-[#fdae5c] rounded-full px-2 py-[1px] text-xs h-6 flex items-center transition-all duration-300 overflow-hidden whitespace-nowrap text-ellipsis"> {{ PathIsShow ? 'Mon DiskDur' : '' }} <i class="fas" :class="PathIsShow ? 'fa-plus rotate-45' : 'fa-check' " ></i> </button>
 
                 <!-- show my shops and path where found this movies when there is not shops selected -->
-                <button v-else @click="MoviesStore.setDisplayAddInShop(true)" class="bg-[#fdae5c] rounded-full px-2 py-[1px] text-[10px] h-5 w-5 flex items-center justify-center"> <i class="fas fa-info" ></i> </button>
+                <button v-else @click="MoviesStore.setDisplayAddInShop(true)" class="bg-[#fdae5c] rounded-full px-2 py-[1px] text-xs w-6 h-6 flex items-center justify-center"> <i class="fas fa-info" ></i> </button>
             </div>
             
         </div>
