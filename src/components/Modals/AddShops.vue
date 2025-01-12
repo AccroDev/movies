@@ -59,6 +59,7 @@
                     <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none ">Enregistrer</button>
             </div>
             <button @click="emit('closeAddModal')" class="absolute top-2 right-1 rounded-sm px-3 py-1 text-xs bg-red-950 opacity-80 text-white font-medium hover:opacity-60 duration-300" >Fermer</button>
+        
         </div>
     </div>
 </template>

@@ -15,18 +15,4 @@
         </div>
     </div>
 </template>
-
-<style>
-    .shopCard{
-        box-shadow: 0px 0px 5px 1px #0000004f;
-    }
-    @media screen and (max-width: 250px) {
-        .shopMinia {
-            display: none; 
-        }
-        .shopCard {
-            margin: 8px 0px;
-            height: auto;
-        }
-    }
-</style>
+ 
