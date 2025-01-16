@@ -1,13 +1,14 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
+import { useAuthStore } from '@/stores/AuthStore';
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),//import.meta.env.BASE_URL
   routes: [
     {
       path: '/',
       name: 'home',
       component: () => import('../views/HomeView.vue'),
-      children : [
+      children: [
         {
           path: ':slug-:id(\\d+)',
           name: 'description',
@@ -17,9 +18,9 @@ const router = createRouter({
     },
     {
       path: '/search',
-      name: 'search', 
+      name: 'search',
       component: () => import('../views/SearchView.vue'),
-      children : [
+      children: [
         {
           path: ':slug-:id(\\d+)',
           name: 'searchDescription',
@@ -29,44 +30,51 @@ const router = createRouter({
     },
     {
       path: '/profil',
-      name : 'profil', 
+      name: 'profil',
       component: () => import('../views/ProfilView.vue'),
-      children : [
+      meta: { requiresAuth: true },
+      children: [
         {
           path: ':slug-:id(\\d+)',
           name: 'profilDescription',
-          component: () => import('../views/Modals/DescriptionMovie.vue') 
+          component: () => import('../views/Modals/DescriptionMovie.vue')
         }
       ]
     },
     {
-      path : '/login',
-      name : 'login',
-      component : () => import('../views/auth/LoginView.vue'),
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/auth/LoginView.vue'),
     },
     {
-      path : '/signin',
-      name : 'signin',
-      component : () => import('../views/auth/SigninView.vue'),
+      path: '/signin',
+      name: 'signin',
+      component: () => import('../views/auth/SigninView.vue'),
     },
     {
-      path : '/:catchAll(.*)',
-      name : 'e404',
-      component : () => import('../views/e404.vue'),
+      path: '/:catchAll(.*)',
+      name: 'e404',
+      component: () => import('../views/e404.vue'),
     },
   ],
-})
-const MovieModalPathName = ['description',"profilDescription","searchDescription"]
-router.beforeEach((to,from,next) => {
-  if (MovieModalPathName.includes(from.name)) {
-    const modal = document.querySelector('.descriptModal') 
-    modal && modal.classList.add('modal-leave-active')
-    setTimeout(()=> {
-      next();
-    },300)
-  }else{
-    next()
-  }
-})
+});
 
-export default router
+const MovieModalPathName = ['description', 'profilDescription', 'searchDescription'];
+
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore();
+
+  if (to.matched.some(record => record.meta.requiresAuth) && !authStore.userData.id) {
+    next("/e404");
+  } else if (MovieModalPathName.includes(from.name)) {
+    const modal = document.querySelector('.descriptModal');
+    modal && modal.classList.add('modal-leave-active');
+    setTimeout(() => {
+      next();
+    }, 300);
+  } else {
+    next();
+  }
+});
+
+export default router;

@@ -1,18 +1,45 @@
-<script setup> 
+<script setup>
+import { useAuthStore } from '@/stores/AuthStore';
 
-    const props = defineProps(["src"]);
+
+
+const props = defineProps({
+  shop: {
+    type: Object,
+    required: true
+  }
+});
+const authStore = useAuthStore();
+const emits = defineEmits(["ShowAddModal"]);
+
+function updateShop() { 
+    emits('ShowAddModal');
+}
+ 
 </script>
 
-<template>
-    <div class="shopCard w-full sm:w-72 overflow-hidden h-36 sm:h-28 m-2 p-1 rounded flex" >
-        <div class="w-2/5 sm:w-28 min-w-[40%] sm:min-w-28 h-full flex items-center justify-center shopMinia" >
-            <img :src="props.src" class="w-full h-full object-contain" alt="">
+<template>   
+    <div class="w-full max-w-[300px] m-2 rounded-xl overflow-hidden shadow-md bg-white border border-gray-200"> 
+        <div class="relative h-56 bg-gray-100">
+            <img 
+            :src="props.shop.miniature"
+            alt="Miniature de la Boutique" 
+            class="w-full h-full object-cover"
+            />
+            <span @click="authStore.DeleteShop(props.shop.id);" class=" cursor-pointer hover:bg-red-800/80 absolute top-2 left-2 bg-red-800/50 text-white text-xs py-[2px] px-2 rounded-sm transition-all duration-200"> Supp. </span>
+            
+            <span @click="updateShop" class="cursor-pointer hover:bg-indigo-800/80 absolute top-2 right-2 bg-indigo-800/50 text-white text-xs py-[2px] px-2 rounded-sm transition-all duration-200">  Modifier
+            </span>
         </div>
-        <div class="flex flex-col ml-1 py-2 overflow-hidden" >
-            <h4 class="mb-auto font-semibold text-lg sm:text-sm  " >Wolf Services</h4>
-            <p class="text-lg sm:text-base" >Tél : <span>+25766478279</span> </p>
-            <p class="text-lg mt-2 sm:text-base" > <strong>Bukavu : </strong> Lorem ipsum dolor sit amet,   </p>
-        </div>
+
+        <!-- Informations sur la boutique -->
+        <div class="p-3">
+            <h3 class="text-xl font-semibold text-gray-800">{{ props.shop.name }}</h3>
+            <p class="text-sm text-gray-500 mt-1">Ville : <span class="text-gray-700">{{ props.shop.ville }}</span></p>
+            <p class="text-sm text-gray-500 mt-1">Numéro : <span class="text-gray-700">{{ props.shop.phone_number }}</span></p> 
+            <p class="text-sm text-gray-500 mt-1 italic">Adresse : <span class="text-gray-700">{{ props.shop.address }}</span></p>
+        </div> 
     </div>
+
+
 </template>
- 

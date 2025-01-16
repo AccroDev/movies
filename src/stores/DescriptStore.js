@@ -4,6 +4,7 @@ import { defineStore } from 'pinia'
 export const useDescriptStore = defineStore('descript', () => {
   const displayBlock = ref("descript"); // "descript", "shops", "download"
   const direction = ref("right"); // "right" ou "left"
+  const moviesData = ref([]);
 
   function setDisplayBlock(newValue) { 
     direction.value = determineDirection(displayBlock.value, newValue); 
@@ -16,5 +17,18 @@ export const useDescriptStore = defineStore('descript', () => {
     return direction;
   }
 
-  return { displayBlock, direction, setDisplayBlock };
+  function setMovieData(data) {
+    const index = moviesData.value.findIndex(movie => movie.id === data.id);
+    if (index !== -1) {
+      moviesData.value[index] = data;
+    } else {
+      moviesData.value.push(data);
+    }
+  }
+
+  function getMovieData(id) {
+    return moviesData.value.find(movie => movie.id === id);
+  }
+
+  return { displayBlock, direction, setDisplayBlock, moviesData, setMovieData, getMovieData };
 });

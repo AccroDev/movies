@@ -3,13 +3,21 @@ import router from '@/router';
 import MoviesDownload from '@/components/Modals/MoviesDownload.vue';
 import MoviesDescription from '@/components/Modals/MoviesDescription.vue';
 import MovieShops from '@/components/Modals/MovieShops.vue'; 
+import { useRoute } from 'vue-router';
+import { computed } from 'vue';
 
 import { useDescriptStore } from '@/stores/DescriptStore';
 const DescriptStore = useDescriptStore();
 
+const route = useRoute(); 
+const returnRoute = computed(() => { 
+  const parentRoute = route.matched[route.matched.length - 2];
+  return parentRoute ? { name: parentRoute.name } : { name: 'home' };
+}); 
+
 </script> 
 <template>
-    <section @click="router.push({name : 'home'})" class="fixed top-0 left-0 bottom-0 right-0 bg-black/80 w-full h-full z-20 flex justify-center items-center descriptModal"  >
+    <section @click="router.push(returnRoute)" class="fixed top-0 left-0 bottom-0 right-0 bg-black/80 w-full h-full z-20 flex justify-center items-center descriptModal"  >
         <div @click.stop class="wrapper bg-white rounded-md w-[95%] sm:w-4/5 max-w-2xl h-[90%] overflow-hidden">
             <header class="w-full h-14 bg-black" >
                 <ul class="flex items-center h-full px-2">
@@ -29,7 +37,7 @@ const DescriptStore = useDescriptStore();
                         @click="DescriptStore.setDisplayBlock('download')"
                     >Download</li> 
 
-                    <router-link :to="{name : 'home'}" class=" cursor-pointer hover:text-[#c4eac8] list-none text-white text-base ml-auto w-8 flex justify-center items-center bg-red-950 hover:bg-red-800 duration-300 transition-all rounded-sm py-[2px] px-5 " ><i class="fas fa-plus rotate-45" ></i></router-link> 
+                    <router-link :to="returnRoute" class=" cursor-pointer hover:text-[#c4eac8] list-none text-white text-base ml-auto w-8 flex justify-center items-center bg-red-950 hover:bg-red-800 duration-300 transition-all rounded-sm py-[2px] px-5 " ><i class="fas fa-plus rotate-45" ></i></router-link> 
 
                 </ul>
             </header>

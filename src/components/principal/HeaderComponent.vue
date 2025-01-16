@@ -1,4 +1,5 @@
 <script setup>
+    import { useAuthStore } from '@/stores/AuthStore';
     import { ref } from 'vue';
 
     const NavClassAnimation = ref("hiddenNavMenu active");
@@ -17,6 +18,23 @@
             }, 300);
         }
     }
+
+    const AuthStore = useAuthStore();
+
+    const classAuthLik = ref('hidden h-0');
+    function showAuthLik() {
+        if (classAuthLik.value === 'hidden h-0') {
+            classAuthLik.value = 'block h-0';
+            setTimeout(() => {
+                classAuthLik.value = 'block h-16';
+            }, 3);
+        }else {
+            classAuthLik.value = 'block h-0';
+            setTimeout(() => {
+                classAuthLik.value = 'hidden h-0';
+            }, 100);
+        }
+    }
 </script>
 
 <template>
@@ -30,17 +48,37 @@
                 <h4 class="text-white opacity-65 text-base movie-title">Movies</h4>
             </div>
         </div> 
-        <nav :class="NavClassAnimation" class="transition-all duration-300 flex-col absolute top-20 left-0 right-0 w-full p-2 justify-between bg-custom-gradient sm:flex-row md:static md:w-max md:p-0 md:bg-none overflow-hidden border-t border-t-slate-100/50 md:border-none" > 
-            <router-link :to="{name: 'search'}" class="my-1 w-max  transition-colors duration-300 text-white mr-2 hover:text-[#c4eac8] hover:border-b-2 hover:border-[#c4eac8]"><i class="fas fa-search" style="width: 14px;font-size: 14px;"></i> Réchercher </router-link>
+        <nav :class="NavClassAnimation" class="transition-all duration-300 flex-col absolute top-20 left-0 right-0 w-full p-2 justify-between bg-custom-gradient sm:flex-row md:static md:w-max md:p-0 md:bg-none overflow-hidden border-t border-t-slate-100/50 md:border-none" >  
+            <a href="/" class="my-1 w-max  transition-colors duration-300 text-white mr-2 hover:text-[#c4eac8] hover:border-b-2 hover:border-[#c4eac8]"><i class="fas fa-align-left" style="width: 14px;font-size: 14px;"></i> Articles </a>
             <a href="/" class="my-1 w-max  transition-colors duration-300 text-white mr-2 hover:text-[#c4eac8] hover:border-b-2 hover:border-[#c4eac8]"><i class="fas fa-align-left" style="width: 14px;font-size: 14px;"></i> Articles </a>
             <a href="/" class="my-1 w-max  transition-colors duration-300 text-white mr-2 hover:text-[#c4eac8] hover:border-b-2 hover:border-[#c4eac8]"><i class="fas fa-file-archive" style="width: 14px;font-size: 14px;"></i> Models </a>
             <a href="/" class="my-1 w-max  transition-colors duration-300 text-white mr-2 hover:text-[#c4eac8] hover:border-b-2 hover:border-[#c4eac8]"><i class="fas fa-shopping-cart" style="width: 14px;font-size: 14px;"></i> Boutiques </a>
             <a href="/" class="my-1 w-max  transition-colors duration-300 text-white mr-2 hover:text-[#c4eac8] hover:border-b-2 hover:border-[#c4eac8] hiddenMenuTablette"><i class="fas fa-book" style="width: 14px;font-size: 14px;"></i> Formations </a>
         </nav>
         <div class="flex justify-center items-center">
-            <router-link :to="{name: 'profil'}" class="block rounded-full h-6 w-6 overflow-hidden mr-2">
-                <img src="/src/assets/img/user.jpg" class="w-full" alt="">
+            <router-link :to="{name: 'search'}" class=" rounded-full h-6 w-6 overflow-hidden mr-4 pl-2">
+                <i class="fas fa-search text-white" ></i>
             </router-link>
+
+
+            <!-- user, if is  -->
+            <router-link v-if="AuthStore.userData.id"  :to="{name: 'profil'}" class="block rounded-full h-6 w-6 overflow-hidden mr-4">
+                <img :src="AuthStore.userData.avatar" class="w-full" alt="">
+            </router-link>
+            <div v-else @click="showAuthLik" class="rounded-full w-6 h-6 mr-4 p-1 border border-white flex items-center justify-center cursor-pointer hover:opacity-85  duration-300 relative">
+                <i class="fas fa-user text-white text-xs" ></i>
+                <ul :class="classAuthLik" class=" absolute top-7 rounded w-32 p-1 bg-white transition-all duration-100 overflow-hidden" >
+                    <router-link :to="{ name : 'login'}" class="block py-1 text-sm pl-1 rounded-sm hover:bg-black/5" >Connexion</router-link>
+                    <router-link :to="{ name : 'signin'}" class="block pb-1 text-sm pl-1 rounded-sm hover:bg-black/5" >Inscription</router-link>
+                </ul>
+            </div>
+
+
+
+
+
+
+
             <div class="rounded-md bg-btn-yellow px-2 py-1 hidden md:block" >
                 <button class="text-white font-semibold">+257 66478279</button>
             </div>

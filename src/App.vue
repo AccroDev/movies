@@ -2,9 +2,18 @@
 import { RouterLink, RouterView } from 'vue-router' 
 import addMovieShop from './components/Modals/addMovieShop.vue';  
 import { useMoviesStore } from './stores/MoviesStore';
+import { onMounted } from 'vue';
+import { useAuthStore } from './stores/AuthStore';
 
 
 const MoviesStore = useMoviesStore(); 
+const AuthStore = useAuthStore();
+  onMounted(()=> {
+    const userData = sessionStorage.getItem("userData")
+    if (userData && JSON.parse(userData)) {
+      AuthStore.setUserDate(JSON.parse(userData));
+    }
+  })
 </script>
 
 <template>  
@@ -63,6 +72,15 @@ const MoviesStore = useMoviesStore();
     .shopCard {
         margin: 8px 0px;
         height: auto;
+    }
+  }
+
+  .spinner {
+    animation: rotate 500ms linear infinite;
+  }
+  @keyframes rotate {
+    to {
+      transform: rotate(360deg);
     }
   }
 </style>
