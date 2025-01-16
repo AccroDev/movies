@@ -17,7 +17,7 @@ export const useMoviesStore = defineStore('movies', () => {
   }
   function setFetchingPath(newValue) {
     fetchingPath.value = newValue;
-  }
+  } 
 
   return { DisplayAddInShop, setDisplayAddInShop, MoviesInShop, setMovieInShop, MovieId, fetchingPath, setFetchingPath };
 });

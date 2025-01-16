@@ -28,15 +28,18 @@
     const ShopsIsSelected = ref(false);
     const PathIsShow = ref(false); 
     const SearchStore = useSearchStore();
+    const AuthStore = useAuthStore(); 
 
     async function like() {
-        let movie = false;
+        let movie = false; 
         
         if (props.store === 'searc-principal') {
             movie = SearchStore.results.find(m => m.id === props.movie.id); 
         } else if (props.store === 'search-other') {
             movie = SearchStore.otherResults.find(m => m.id === props.movie.id); 
-        }else {
+        }else if(props.store === "history") {
+             movie = AuthStore.historyMovies.find(m => m.id === props.movie.id);
+        } else {
             movie = globalStore.movies.find(m => m.id === props.movie.id);
         }
         
@@ -52,7 +55,7 @@
         }
     }
 
-    const AuthStore = useAuthStore(); 
+    
     
 </script>
 

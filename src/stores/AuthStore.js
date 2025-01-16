@@ -10,6 +10,7 @@ export const useAuthStore = defineStore('auth', () => {
   const direction = ref("right"); // "right" ou "left"
   const userData = ref([]);
   const userShops = ref([]); 
+  const historyMovies = ref([]);
 
   function setDisplayBlock(newValue,isLogin = false) {  
         if (isLogin) {
@@ -41,6 +42,15 @@ export const useAuthStore = defineStore('auth', () => {
     }
   } 
 
+  async function fetchHistory() {
+    try {
+      const response = await axios.get(`${globalStore.apiHost}/api/get-history`);
+      historyMovies.value = response.data;
+    } catch (error) {
+      console.error('Error fetching history:', error);
+    }
+  }
+
   async function DeleteShop(id) {
     userShops.value = userShops.value.filter(shop => shop.id !== id)
     try {
@@ -67,5 +77,5 @@ export const useAuthStore = defineStore('auth', () => {
     shopSelected.value = newValue;
   }
 
-  return { displayBlock, userData, setUserDate, direction, setDisplayBlock, displayLoginBlock, logout, userShops, fetchUserShops ,DeleteShop,shopSelected, setShopSelected };
+  return { displayBlock, userData, setUserDate, direction, setDisplayBlock, displayLoginBlock, logout, userShops, fetchUserShops ,DeleteShop,shopSelected, setShopSelected, historyMovies, fetchHistory };
 });
