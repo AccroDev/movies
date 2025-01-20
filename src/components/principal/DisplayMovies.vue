@@ -14,9 +14,15 @@ async function fetchMovies() {
   loading.value = true;
   try {
     const response = await axios.get(`${globalStore.apiHost}/api/movies`, {
-      params: { page: page.value }
+      params: { 
+        page: page.value,  
+        ville : globalStore.selectedVille,
+        shop : globalStore.selectedShop,
+        type : globalStore.selectedType,
+        onlyAvailable : globalStore.onlyAvailable 
+      }
     });
-    if (response.data.length < 20) {
+    if (response.data.length < 1) {
       hasMore.value = false;
     }
     globalStore.setMovies([...globalStore.movies, ...response.data]);
@@ -57,7 +63,7 @@ watch(() => globalStore.movies.length, (newLength) => {
       <p class="text-center text-xs opacity-65 w-1/2">Vous recherchez un Film ou une serie à regarder ? Faites vous plaisir...</p>
     </div>
     <div class="flex justify-center">
-      <div class="mx-1 flex flex-wrap justify-center sm:justify-start sm:max-w-[95%] md:max-w-[701px] max-w-full">
+      <div class="mx-1 flex flex-wrap justify-center sm:justify-start sm:max-w-[95%] md:max-w-[701px] max-w-full w-full">
         <MoviesCard v-for="movie in globalStore.movies" :key="movie.id" :movie="movie" class="movie-card" />
       </div>
     </div>

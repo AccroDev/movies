@@ -1,5 +1,6 @@
 <script setup>
 import { useAuthStore } from '@/stores/AuthStore';
+import { useGlobalStore } from '@/stores/GlobalStore';
 
 
 
@@ -11,9 +12,10 @@ const props = defineProps({
 });
 const authStore = useAuthStore();
 const emits = defineEmits(["ShowAddModal"]);
+const GlobalStore = useGlobalStore();
 
 function updateShop() { 
-    emits('ShowAddModal');
+    emits('ShowAddModal', props.shop);
 }
  
 </script>
@@ -22,7 +24,7 @@ function updateShop() {
     <div class="w-full max-w-[300px] m-2 rounded-xl overflow-hidden shadow-md bg-white border border-gray-200"> 
         <div class="relative h-56 bg-gray-100">
             <img 
-            :src="props.shop.miniature"
+            :src="GlobalStore.apiHost + props.shop.miniature"
             alt="Miniature de la Boutique" 
             class="w-full h-full object-cover"
             />
@@ -38,8 +40,8 @@ function updateShop() {
             <p class="text-sm text-gray-500 mt-1">Ville : <span class="text-gray-700">{{ props.shop.ville }}</span></p>
             <p class="text-sm text-gray-500 mt-1">Numéro : <span class="text-gray-700">{{ props.shop.phone_number }}</span></p> 
             <p class="text-sm text-gray-500 mt-1 italic">Adresse : <span class="text-gray-700">{{ props.shop.address }}</span></p>
+            <p class="text-sm text-gray-500 mt-1 italic">Prix /saison : <span class="text-gray-700">{{ props.shop.prixSaison ?? "" }}</span></p>
+            <p class="text-sm text-gray-500 mt-1 italic">Prix /film : <span class="text-gray-700">{{ props.shop.prixFilm ?? "" }}</span></p>
         </div> 
-    </div>
-
-
+    </div> 
 </template>

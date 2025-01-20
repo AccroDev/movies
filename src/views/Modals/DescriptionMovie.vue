@@ -4,16 +4,22 @@ import MoviesDownload from '@/components/Modals/MoviesDownload.vue';
 import MoviesDescription from '@/components/Modals/MoviesDescription.vue';
 import MovieShops from '@/components/Modals/MovieShops.vue'; 
 import { useRoute } from 'vue-router';
-import { computed } from 'vue';
+import { computed, onMounted, onUnmounted } from 'vue';
 
 import { useDescriptStore } from '@/stores/DescriptStore';
+import { useGlobalStore } from '@/stores/GlobalStore';
 const DescriptStore = useDescriptStore();
+
+const globalStore = useGlobalStore();
 
 const route = useRoute(); 
 const returnRoute = computed(() => { 
   const parentRoute = route.matched[route.matched.length - 2];
   return parentRoute ? { name: parentRoute.name } : { name: 'home' };
 }); 
+
+onUnmounted(() => { document.body.style.overflow = ''; })
+onMounted(() => { document.body.style.overflow = 'hidden'; })
 
 </script> 
 <template>
@@ -47,7 +53,7 @@ const returnRoute = computed(() => {
                     :name="DescriptStore.direction === 'right' ? 'slide-right' : 'slide-left'"
                     mode="out-in"
                 >
-                    <div :key="DescriptStore.displayBlock" class="w-full" >
+                    <div :key="DescriptStore.displayBlock" class="w-full min-h-full flex flex-col " :class="DescriptStore.displayBlock === 'descript' ? 'bg-[#4b38d2]' : 'h-full'" >
                       <MoviesDescription 
                           v-if="DescriptStore.displayBlock === 'descript'" 
                       />
@@ -65,7 +71,7 @@ const returnRoute = computed(() => {
     </section>
 </template>
 
-<style scoped>
+<style scoped> 
     /* Animation vers la droite */
     .slide-right-enter-active, .slide-right-leave-active {
       transition: transform 0.3s ease, opacity 0.3s ease;

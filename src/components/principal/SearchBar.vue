@@ -4,7 +4,7 @@
 </script>
 
 <template> 
-    <form @submit.prevent action="/search" method="post" class="w-full my-10">
+    <form @submit.prevent action="/search" method="post" class="w-full mt-10 my-2">
         <h2 class="text-center my-2 mb-4 text-2xl" >Rechercher une serie/film</h2>
         <div class="w-full relative py-0 px-2" > 
             <input v-model="SearchStore.query" type="text" name="query" id="query" class="w-full py-2 pr-10 pl-2 text-base opacity-80 outline-none rounded transition-all duration-300 queryInput"> 

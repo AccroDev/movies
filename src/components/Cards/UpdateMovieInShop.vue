@@ -18,14 +18,14 @@
     const newPath = ref('');
     const sending = ref(false);
     const movieStore = useMoviesStore(); 
-    watch(() => movieStore.MoviesInShop[movieStore.MovieId], (newValue) => {
+    watch(() => movieStore.pathMovieInShop[movieStore.MovieId], (newValue) => {
         if (newValue) {
             newPath.value = newValue[props.shop.id] ? newValue[props.shop.id].path : '';
         }
     });
     onMounted(() => {
-        if (movieStore.MoviesInShop[movieStore.MovieId]) {
-            newPath.value = movieStore.MoviesInShop[movieStore.MovieId][props.shop.id] ? movieStore.MoviesInShop[movieStore.MovieId][props.shop.id].path : '';
+        if (movieStore.pathMovieInShop[movieStore.MovieId]) {
+            newPath.value = movieStore.pathMovieInShop[movieStore.MovieId][props.shop.id] ? movieStore.pathMovieInShop[movieStore.MovieId][props.shop.id].path : '';
         }
     }); 
     async function setNewPath() {

@@ -1,19 +1,33 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router' 
+import {  RouterView,useRouter } from 'vue-router' 
 import addMovieShop from './components/Modals/addMovieShop.vue';  
 import { useMoviesStore } from './stores/MoviesStore';
 import { onMounted } from 'vue';
-import { useAuthStore } from './stores/AuthStore';
+import { useAuthStore } from './stores/AuthStore'; 
+import ScriptLoader from './components/principal/ScriptLoader.vue';
+import { useGlobalStore } from './stores/GlobalStore';
 
 
-const MoviesStore = useMoviesStore(); 
-const AuthStore = useAuthStore();
+
+  const MoviesStore = useMoviesStore(); 
+  const AuthStore = useAuthStore(); 
   onMounted(()=> {
     const userData = sessionStorage.getItem("userData")
     if (userData && JSON.parse(userData)) {
       AuthStore.setUserDate(JSON.parse(userData));
     }
-  })
+  }) 
+
+  const globalStore = useGlobalStore();
+  const router = useRouter();
+    // Surveille les changements de route
+  router.beforeEach(() => { 
+    globalStore.setScriptLoading(true)// Active le chargement
+  });
+
+  router.afterEach(() => { 
+    globalStore.setScriptLoading(false)// Désactive le chargement 
+  });
 </script>
 
 <template>  
@@ -21,9 +35,13 @@ const AuthStore = useAuthStore();
   <transition name="slide" >
     <addMovieShop :key="'one'" v-if="MoviesStore.DisplayAddInShop" @closeAddModal="MoviesStore.setDisplayAddInShop(!MoviesStore.DisplayAddInShop)" />
   </transition>
+  <transition name="slide" >
+    <ScriptLoader :key="'one'" v-if="globalStore.scriptLoading" />
+  </transition>
+  
 </template>
 
-<style>  
+<style>   
   .slide-enter-active, .slide-leave-active {
     transition: 0.3s ease;
   }
@@ -37,18 +55,18 @@ const AuthStore = useAuthStore();
   .slide-enter-to { 
       opacity: 1; 
   }
-  .slide-enter-from .addShopWrapper{ 
+  .slide-enter-from .addShopWrapper, .slide-enter-from .wrapper{ 
     transform: translateY(30px);
   }
 
-  .slide-enter-to .addShopWrapper{ 
+  .slide-enter-to .addShopWrapper, .slide-enter-from .wrapper{ 
       transform: translateY(0px);
   }
-  .slide-leave-from .addShopWrapper{ 
+  .slide-leave-from .addShopWrapper, .slide-enter-from .wrapper{ 
     transform: translateY(0px);
   }
 
-  .slide-leave-to .addShopWrapper{ 
+  .slide-leave-to .addShopWrapper, .slide-enter-from .wrapper{ 
       transform: translateY(30px);
   }
   .slide-leave-from { 

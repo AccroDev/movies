@@ -23,7 +23,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section v-if="descriptStore.getMovieData(route.params.id)" class="bg-[#4b38d2] text-white">
+  <section v-if="descriptStore.getMovieData(route.params.id)" class=" text-white">
     <img class="object-cover mb-5 w-full" :src="descriptStore.getMovieData(route.params.id).miniature" :alt="descriptStore.getMovieData(route.params.id).titre">
     <div class="my-0 mx-auto pt-0 px-1 pb-5">
       <p class="text-justify mb-5">{{ descriptStore.getMovieData(route.params.id).description }}</p>

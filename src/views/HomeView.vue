@@ -7,7 +7,9 @@
 
 <template>
     <HeaderComponent />
-    <RecommandationCarousel />
+    <keep-alive  > 
+      <RecommandationCarousel />
+    </keep-alive>
     <FiltersComponent />
     <DisplayMovies /> 
     <router-view v-slot="{ Component }">

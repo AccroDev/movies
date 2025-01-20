@@ -13,18 +13,20 @@ const movieStore  = useMoviesStore();
 const globalStore = useGlobalStore();
 
 async function fetchAdress() { 
-    if (movieStore.MoviesInShop[movieStore.MovieId]) {
+    if (movieStore.pathMovieInShop[movieStore.MovieId]) {
         return;
     }       
     try { 
         movieStore.setFetchingPath(true);
         const response = await axios.get(`${globalStore.apiHost}/api/get-movies-in-shop/${movieStore.MovieId}`); 
-        movieStore.setMovieInShop(movieStore.MovieId, response.data);  
+        movieStore.setpathMovieInShop(movieStore.MovieId, response.data);  
         movieStore.setFetchingPath(false);
     } catch (error) {  
         movieStore.setFetchingPath(false);
         console.error('Error fetching movies in shop:', error); 
     }
+    /* pathMovieInShop
+setpathMovieInShop */
 }
 
 onMounted(async () => {

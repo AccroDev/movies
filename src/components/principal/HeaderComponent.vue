@@ -1,5 +1,6 @@
 <script setup>
     import { useAuthStore } from '@/stores/AuthStore';
+import { useGlobalStore } from '@/stores/GlobalStore';
     import { ref } from 'vue';
 
     const NavClassAnimation = ref("hiddenNavMenu active");
@@ -20,6 +21,7 @@
     }
 
     const AuthStore = useAuthStore();
+    const GlobalStore = useGlobalStore();
 
     const classAuthLik = ref('hidden h-0');
     function showAuthLik() {
@@ -63,7 +65,7 @@
 
             <!-- user, if is  -->
             <router-link v-if="AuthStore.userData.id"  :to="{name: 'profil'}" class="block rounded-full h-6 w-6 overflow-hidden mr-4">
-                <img :src="AuthStore.userData.avatar" class="w-full" alt="">
+                <img :src="AuthStore.userData.avatarUpdate ? AuthStore.userData.avatar : GlobalStore.apiHost + AuthStore.userData.avatar" class="w-full" alt="">
             </router-link>
             <div v-else @click="showAuthLik" class="rounded-full w-6 h-6 mr-4 p-1 border border-white flex items-center justify-center cursor-pointer hover:opacity-85  duration-300 relative">
                 <i class="fas fa-user text-white text-xs" ></i>
