@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 import axios from 'axios';
 
 export const useGlobalStore = defineStore('global', () => {
-  const apiHost = ref("http://localhost:8001");//
+  const apiHost = ref("http://movies");//http://localhost:8001
   const movies = ref([]);
   const recommanded = ref([]);
   const villes = ref([]);
