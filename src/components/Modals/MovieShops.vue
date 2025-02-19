@@ -11,7 +11,7 @@ const selectedVille = ref('');
 const shops = ref([]);
 const showTown = ref(false);
 const classTownsElements = ref("hidden");
-const fetching = ref(false);
+const fetching = ref("notYet");
 
 onMounted(async () => {
   await globalStore.fetchVilles();
@@ -33,7 +33,7 @@ function ToggleTown() {
 }
 
 async function fetchShops() {
-  if (!selectedVille.value) return;
+  if (!selectedVille.value || fetching.value === true) return;
 
   try {
     fetching.value = true;
@@ -46,7 +46,7 @@ async function fetchShops() {
     fetching.value = false;
     shops.value = response.data;
   } catch (error) {
-    fetching.value = false;
+    fetching.value = 'Error';
     console.error('Error fetching shops:', error);
   }
 }
@@ -74,10 +74,17 @@ async function fetchShops() {
     <h3 class="text-base pb-1 mt-2 mb-4 border-b-4 w-max border-black font-medium">Resultats</h3>
 
     <div class="flex flex-wrap">
-      <ShopCard v-for="shop in shops" :key="shop.id" :shop="shop" />
-      <div v-if="fetching === false && selectedVille !== '' && shops.length < 1" >
+
+      <span v-if="fetching === true" class="spinner w-14 h-14 border-t-2 border-b-2 border-l-2 border-black border-r-2 border-r-transparent rounded-full flex justify-center items-center mx-auto my-5 mb-2"></span>
+      
+      <div v-else-if="fetching === false && selectedVille !== '' && shops.length < 1" >
         Aucune Boutique de transfert trouver dans cette ville.
       </div>
+
+      <div v-else  class="flex flex-wrap">
+        <ShopCard v-for="shop in shops" :key="shop.id" :shop="shop" />
+      </div>
+
     </div>
   </div>
 </template>

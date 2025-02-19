@@ -198,12 +198,11 @@
                   <input type="password" id="password" v-model="password" required class="mt-1 block w-full px-3 py-2 border-b border-gray-300 focus:outline-none  sm:text-sm bg-transparent text-white">
                 </div>
                 <div class="sm:flex items-center justify-between mb-6">
-                  <div class="flex items-center my-1">
-                      <input id="remember_me" type="checkbox" v-model="rememberMe" class="h-4 w-4 text-indigo-600  rounded">
-                      <label for="remember_me" class="ml-2 block text-sm text-white">Se souvenir de moi</label>
+                  <div class="flex items-center my-1"> 
+                    <router-link :to="{name: 'signin'}" class="ml-2 block text-sm text-white" >Créer un compte</router-link>
                   </div>
                   <div class="text-sm my-1" @click="AuthStore.setDisplayBlock('sendmail',true)" >
-                      <a href="#" class="font-medium text-white hover:text-gray-200">Mot de passe oublié?</a>
+                      <a @click.prevent href="#" class="font-medium text-white hover:text-gray-200">Mot de passe oublié?</a>
                   </div>
                 </div>
                 <div v-if="errors" class=" m-3 text-sm text-red-200 underline lowercase" > {{ errors }} </div>

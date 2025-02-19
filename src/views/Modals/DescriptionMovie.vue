@@ -53,7 +53,7 @@ onMounted(() => { document.body.style.overflow = 'hidden'; })
                     :name="DescriptStore.direction === 'right' ? 'slide-right' : 'slide-left'"
                     mode="out-in"
                 >
-                    <div :key="DescriptStore.displayBlock" class="w-full min-h-full flex flex-col " :class="DescriptStore.displayBlock === 'descript' ? 'bg-[#4b38d2]' : 'h-full'" >
+                    <div :key="DescriptStore.displayBlock" class="w-full min-h-full flex flex-col " :class="DescriptStore.displayBlock === 'descript' ? 'bg-[#231c55]' : 'h-full'" >
                       <MoviesDescription 
                           v-if="DescriptStore.displayBlock === 'descript'" 
                       />

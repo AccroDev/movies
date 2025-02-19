@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 import axios from 'axios';
 
 export const useGlobalStore = defineStore('global', () => {
-  const apiHost = ref("http://movies");//http://localhost:8001
+  const apiHost = ref("http://movies"); //http://localhost:8001
   const movies = ref([]);
   const recommanded = ref([]);
   const villes = ref([]);
@@ -47,7 +47,12 @@ export const useGlobalStore = defineStore('global', () => {
     }
   } 
 
-  const updatingFiltre = ref(false);
+  const selectedShop = ref('');
+  const setSelectedShop = async (value) => { 
+    selectedShop.value = value ;
+  };
+
+  const updatingFiltre = ref(false); 
   async function setFilter() {
     updatingFiltre.value = true;
     try {
@@ -78,6 +83,8 @@ export const useGlobalStore = defineStore('global', () => {
     shopsByVille,
     selectedVille,
     selectedType,
+    selectedShop,
+    setSelectedShop,
     onlyAvailable,
     setMovies,
     fetchVilles,

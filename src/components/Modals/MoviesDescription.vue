@@ -25,7 +25,8 @@ onMounted(async () => {
 <template>
   <section v-if="descriptStore.getMovieData(route.params.id)" class=" text-white">
     <img class="object-cover mb-5 w-full" :src="descriptStore.getMovieData(route.params.id).miniature" :alt="descriptStore.getMovieData(route.params.id).titre">
-    <div class="my-0 mx-auto pt-0 px-1 pb-5">
+    <div class="my-0 mx-auto pt-0 px-1 pb-5"> 
+      <h3 class="text-white text-2xl font-bold my-4" >{{ descriptStore.getMovieData(route.params.id).titre }}</h3>
       <p class="text-justify mb-5">{{ descriptStore.getMovieData(route.params.id).description }}</p>
       <div class="pl-5">
         <p class="mb-3">Date de première diffusion : {{ descriptStore.getMovieData(route.params.id).date }}</p>

@@ -1,7 +1,7 @@
 <script setup>
     import { useAuthStore } from '@/stores/AuthStore';
 import { useGlobalStore } from '@/stores/GlobalStore';
-    import { ref } from 'vue';
+    import { ref, onMounted, onUnmounted } from 'vue';
 
     const NavClassAnimation = ref("hiddenNavMenu active");
     const isShowMenu = ref(false); 
@@ -37,10 +37,36 @@ import { useGlobalStore } from '@/stores/GlobalStore';
             }, 100);
         }
     }
+
+    const isScrollingUp = ref(false);
+    let lastScrollTop = 0;
+    let transform = ref('translateY(0)') ;
+
+    function handleScroll() {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop; 
+        
+        isScrollingUp.value = true;
+        transform.value = scrollTop < lastScrollTop && scrollTop > 100 ? '0' : '-100%';
+        
+        if (scrollTop < 100)
+        {
+            isScrollingUp.value = "start";
+            transform.value = '0';
+        }
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    }
+
+    onMounted(() => {
+        window.addEventListener('scroll', handleScroll);
+    });
+
+    onUnmounted(() => {
+        window.removeEventListener('scroll', handleScroll);
+    });
 </script>
 
 <template>
-    <header class="h-20 w-full bg-custom-gradient px-1 py-1 flex justify-between items-center relative md:px-2 lg:px-5 z-10" >
+    <header :class="{'fixed-header': isScrollingUp === true}" class="header-transition h-20 w-full bg-custom-gradient top-0 z-10 px-1 py-1 flex justify-between items-center relative md:px-2 lg:px-5" >
         <div class="h-full flex justify-start items-center">
             <router-link :to="{name: 'home'}"  class="transition-opacity duration-300 h-full hover:opacity-65 " >
                 <img class="h-full" src="/src/assets/img/logo.png" alt="accrodev movies logo">
@@ -159,5 +185,13 @@ import { useGlobalStore } from '@/stores/GlobalStore';
         .icon-menu {
             margin-left: 0px;
         }
+    }
+    .fixed-header {
+        position: fixed;  
+    } 
+
+    .header-transition {
+        transform: translateY(v-bind(transform)); 
+        transition: transform 0.5s ease-in-out;
     }
 </style>

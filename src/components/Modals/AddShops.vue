@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import axios from 'axios';
 import { useGlobalStore } from '@/stores/GlobalStore';
 import { useAuthStore } from '@/stores/AuthStore';
@@ -31,6 +31,7 @@ const prixSaison = ref('');
 const prixFilm = ref('');
 
 onMounted(async () => {
+  document.body.style.overflow = 'hidden';
   if (props.shop) {
     name.value = props.shop.name;
     ville.value = props.shop.ville;
@@ -39,6 +40,7 @@ onMounted(async () => {
   }
   await globalStore.fetchVilles();
 });
+onUnmounted(() => { document.body.style.overflow = '';  }) ;
 
 function ToggleTown() {
   showTown.value = !showTown.value;
@@ -99,7 +101,7 @@ const createShop = async () => {
 <template>
   <div class="fixed top-0 left-0 bottom-0 right-0 bg-black/80 w-full h-full z-20 flex justify-center items-center" @click="emit('closeAddModal')">
     <div @click.stop class="bg-white rounded-md w-[95%] sm:w-4/5 max-w-2xl h-[90%] overflow-hidden flex justify-center items-center p-2 sm:p-4 addShopWrapper relative">
-      <form @submit.prevent="createShop" method="post" enctype="multipart/form-data" class="w-full sm:w-4/5" id="createShopForm">
+      <form @submit.prevent="createShop" method="post" enctype="multipart/form-data" class="w-full sm:w-4/5 h-full overflow-y-auto overflow-x-hidden " id="createShopForm">
         <h2 class="text-2xl font-bold mb-3 text-center text-back">{{ props.shop ? 'Modifier la Boutique' : 'Créer une Boutique' }}</h2>
         <div class="mb-2">
           <label for="name" class="block text-sm font-medium text-black">Nom De la Boutique</label>

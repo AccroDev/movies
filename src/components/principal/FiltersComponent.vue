@@ -51,6 +51,8 @@ function toggleDisponible() {
 
 <template>
   <section class="bg-white w-full sm:max-w-[95%] md:max-w-[701px] min-h-30 ml-auto mr-auto p-2 flex flex-col my-2 filterSection">
+
+
     <div class="flex justify-between my-2 mx-1 w-full h-max">
       <div>
         <h3 class="w-max font-bold text-xl border-b-4 border-[#fdae5c]">Filtres</h3>
@@ -66,6 +68,8 @@ function toggleDisponible() {
     </div>
 
     <div class="flex justify-start my-2 flex-wrap filtersContainer">
+
+
       <div class="border border-[#feebd6] rounded-md h-12 w-[45%] sm:w-44 flex justify-start items-center p-1 ml-2 mt-2 relative filterItem" @click="ToggleTown('town')">
         <div class="border border-[#feebd6] rounded-full h-8 w-8 flex justify-center items-center">
           <i class="fas fa-map-marker-alt"></i>
@@ -75,22 +79,27 @@ function toggleDisponible() {
           <span class="fas fa-arrow-down font-semibold"></span>
         </div>
         <ul class="absolute top-10 left-0 right-0 origin-top scale-y-0 px-2 py-1 bg-[#feebd6] rounded-md duration-200 transition-all z-10" :class="classTownsElements">
+          <li @click="selectVille('')" class="rounded-sm hover:font-semibold py-1 text-xs px-1 cursor-pointer hover:bg-[#e9d5c1]">Tout</li>
           <li v-for="ville in globalStore.villes" :key="ville.id" @click="selectVille(ville.name)" class="rounded-sm hover:font-semibold py-1 text-xs px-1 cursor-pointer hover:bg-[#e9d5c1]">{{ ville.name }}</li>
         </ul>
       </div>
+
+
       <div class="border border-[#feebd6] rounded-md h-12 w-[45%] sm:w-44 flex justify-start items-center p-1 ml-2 mt-2 relative filterItem" @click="ToggleTown('shops')">
         <div class="border border-[#feebd6] rounded-full h-8 w-8 flex justify-center items-center relative after:absolute after:top-0 after:left-0 after:w-full after:h-full after:rounded-full after:border-b-transparent after:border after:border-black after:spinner" :class="isfetchingShop ? 'isfetchingShop' : 'after:hidden'">
           <i class="fas fa-house"></i> 
         </div>
         <div class="flex flex-1 justify-between items-center mx-1 cursor-pointer" style="width: 60%;" >
-          <h5 class="font-semibold text-lg uppercase filterTitle w-full overflow-hidden text-ellipsis whitespace-nowrap ">{{ movieStore.selectedShop.name || 'Tout' }}</h5>
+          <h5 class="font-semibold text-lg uppercase filterTitle w-full overflow-hidden text-ellipsis whitespace-nowrap ">{{ globalStore.selectedShop.name || 'Tout' }}</h5>
           <span class="fas fa-arrow-down font-semibold"></span>
         </div>
         <ul class="absolute top-10 left-0 right-0 origin-top scale-y-0 px-2 py-1 bg-[#feebd6] rounded-md duration-200 transition-all z-10" :class="classShopsElements">
-          <li @click="movieStore.setSelectedShop('') " class="rounded-sm hover:font-semibold py-1 text-xs px-1 cursor-pointer hover:bg-[#e9d5c1]">Tout</li>
-          <li v-for="shop in globalStore.shopsByVille[globalStore.selectedVille]" :key="shop.id" @click="movieStore.setSelectedShop(shop) " class="rounded-sm hover:font-semibold py-1 text-xs px-1 cursor-pointer hover:bg-[#e9d5c1]">{{ shop.name }}</li>
+          <li @click="globalStore.setSelectedShop('') " class="rounded-sm hover:font-semibold py-1 text-xs px-1 cursor-pointer hover:bg-[#e9d5c1]">Tout</li>
+          <li v-for="shop in globalStore.shopsByVille[globalStore.selectedVille]" :key="shop.id" @click="globalStore.setSelectedShop(shop)" class="rounded-sm hover:font-semibold py-1 text-xs px-1 cursor-pointer hover:bg-[#e9d5c1]">{{ shop.name }}</li>
         </ul>
       </div>
+
+
       <div class="border border-[#feebd6] rounded-md h-12 w-[45%] sm:w-44 flex justify-start items-center p-1 ml-2 mt-2 relative filterItem" @click="ToggleTown('type')">
         <div class="border border-[#feebd6] rounded-full h-8 w-8 flex justify-center items-center">
           <i class="fas fa-video"></i>
@@ -105,6 +114,8 @@ function toggleDisponible() {
           <li @click="selectType('film')" class="rounded-sm hover:font-semibold py-1 text-xs px-1 cursor-pointer hover:bg-[#e9d5c1]">Films</li>
         </ul>
       </div>
+
+
       <div @click="globalStore.setFilter" class="border border-[#feebd6] bg-[#feebd6] rounded-md h-12 w-[45%] sm:w-44 flex justify-center items-center p-1 ml-2 mt-2 cursor-pointer filterItem">
         <h5 class="text-base filterTitle flex items-center justify-center"><span v-if="globalStore.updatingFiltre" class="spinner w-5 h-5 rounded-full border-b-transparent border-2 border-black inline-flex items-center justify-center mr-1" ></span>  Appliquer</h5> 
       </div>
