@@ -1,5 +1,6 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
+import { useMoviesStore } from './MoviesStore';
 
 export const useSearchStore = defineStore('search', () => {
   const query = ref('');
@@ -9,6 +10,14 @@ export const useSearchStore = defineStore('search', () => {
   const thdbResults = ref([]);
   const foundMovies = ref([]);
   const foundTmbMovies = ref([]);
+
+  const selectedVille = ref("");
+  const selectedShop = ref("");
+  const movieStore = useMoviesStore();
+  const setSelectedShop = async (value) => { 
+    let resp = await movieStore.fetchMoviesInShop(value.id);
+    selectedShop.value = value;
+  };
 
   function setQuery(newQuery) {
     query.value = newQuery;
@@ -26,6 +35,19 @@ export const useSearchStore = defineStore('search', () => {
     foundTmbMovies.value = [...resFound, ...otherResultsFound].map(result => result.idTmdb);
   }
 
-  return { query, setSearch, search, results, foundTmbMovies, otherResults, thdbResults,  setQuery, setResults, foundMovies };
+  return { 
+    query, 
+    setSearch, 
+    search, 
+    results, 
+    foundTmbMovies, 
+    otherResults, 
+    thdbResults,  
+    setQuery, 
+    setResults, 
+    selectedVille,
+    selectedShop,
+    setSelectedShop,
+    foundMovies };
 
 });

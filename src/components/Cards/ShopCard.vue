@@ -39,7 +39,7 @@ function updateShop() {
             <h3 class="text-xl font-semibold text-gray-800">{{ props.shop.name }}</h3>
             <p class="text-sm text-gray-500 mt-1">Ville : <span class="text-gray-700">{{ props.shop.ville }}</span></p>
             <p class="text-sm text-gray-500 mt-1">Numéro : <span class="text-gray-700">{{ props.shop.phone_number }}</span></p> 
-            <p class="text-sm text-gray-500 mt-1 italic">Adresse : <span class="text-gray-700">{{ props.shop.address }}</span></p>
+            <p class="text-sm text-gray-500 mt-1 italic">Adresse : <span class="text-gray-700">{{ props.shop.address }}</span></p> 
             <p class="text-sm text-gray-500 mt-1 italic">Prix /saison : <span class="text-gray-700">{{ props.shop.prixSaison ?? "" }}</span></p>
             <p class="text-sm text-gray-500 mt-1 italic">Prix /film : <span class="text-gray-700">{{ props.shop.prixFilm ?? "" }}</span></p>
         </div> 

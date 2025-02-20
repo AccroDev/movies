@@ -15,6 +15,8 @@ watch(() => searchStore.search, async (newValue) => {
         params: {
           query: searchStore.query,
           type: 'a',
+          ville : searchStore.selectedVille,
+          shop : searchStore.selectedShop.id,
           found : JSON.stringify(searchStore.foundMovies) 
         }
       });

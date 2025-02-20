@@ -24,7 +24,7 @@ export const useMoviesStore = defineStore('movies', () => {
    */
   async function fetchMoviesInShop(shopId) {     
     // on ne vérifie pas le MoviesInShop.value[shopId] car il vient d'etre mis à jours
-    if (shopId === false || fetchingMovieInShop.value.includes(shopId)) {
+    if (!shopId || fetchingMovieInShop.value.includes(shopId)) {
       return;
     }   
     // dire que nous somme entrain de fetcher les datas de cette boutique
@@ -36,12 +36,12 @@ export const useMoviesStore = defineStore('movies', () => {
       });
       MoviesInShop.value[shopId] = response.data;
       fetchingMovieInShop.value = fetchingMovieInShop.value.filter((id) => id !== shopId);
-       
+     
     } catch (error) {
       console.error('Error fetching movies in shop:', error);
       fetchingMovieInShop.value = fetchingMovieInShop.value.filter((id) => id !== shopId);
     }
-    
+    return true;
   } 
 
   /* lorsqu'on selectionne les shop dans search ou homePage */

@@ -14,7 +14,9 @@ watch(() => searchStore.search, async (newValue) => {
       const response = await axios.get(`${globalStore.apiHost}/api/search`, {
         params: {
           query: searchStore.query,
-          type: 'p'
+          type: 'p',
+          ville : searchStore.selectedVille,
+          shop : searchStore.selectedShop.id
         }
       }); 
       searchStore.setResults(response.data);

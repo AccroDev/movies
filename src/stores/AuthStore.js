@@ -66,7 +66,7 @@ export const useAuthStore = defineStore('auth', () => {
     userData.value = [];
     sessionStorage.removeItem('userData');
     try {
-      const response = await axios.post(`${globalStore.apiHost}/api/logout`); 
+      const response = await axios.post(`${globalStore.apiHost}/api/logout`);  
     } catch (error) {
       console.log(error); 
     }

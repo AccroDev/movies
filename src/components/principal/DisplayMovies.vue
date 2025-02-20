@@ -64,7 +64,7 @@ watch(() => globalStore.movies.length, (newLength) => {
     </div>
     <div class="flex justify-center">
       <div class="mx-1 flex flex-wrap justify-center sm:justify-start sm:max-w-[95%] md:max-w-[701px] max-w-full w-full">
-        <MoviesCard v-for="movie in globalStore.movies" :key="movie.id" :movie="movie" class="movie-card" />
+        <MoviesCard v-for="movie in globalStore.movies" :key="movie.id" :movie="movie" class="movie-card" pathName="description" />
       </div>
     </div>
     <div class="my-8" v-if="loading">

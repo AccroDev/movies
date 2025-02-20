@@ -1,9 +1,10 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import axios from 'axios';
+import { useMoviesStore } from './MoviesStore';
 
 export const useGlobalStore = defineStore('global', () => {
-  const apiHost = ref("http://movies"); //http://localhost:8001
+  const apiHost = ref("http://movies"); //
   const movies = ref([]);
   const recommanded = ref([]);
   const villes = ref([]);
@@ -11,6 +12,8 @@ export const useGlobalStore = defineStore('global', () => {
   const selectedVille = ref('');  
   const selectedType = ref('');
   const onlyAvailable = ref(false);
+
+  const movieStore = useMoviesStore();
 
 
   const scriptLoading = ref(false) ;
@@ -49,7 +52,8 @@ export const useGlobalStore = defineStore('global', () => {
 
   const selectedShop = ref('');
   const setSelectedShop = async (value) => { 
-    selectedShop.value = value ;
+    let resp = await movieStore.fetchMoviesInShop(value.id);
+    selectedShop.value = value;
   };
 
   const updatingFiltre = ref(false); 

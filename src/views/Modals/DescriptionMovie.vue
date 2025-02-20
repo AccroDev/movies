@@ -23,7 +23,7 @@ onMounted(() => { document.body.style.overflow = 'hidden'; })
 
 </script> 
 <template>
-    <section @click="router.push(returnRoute)" class="fixed top-0 left-0 bottom-0 right-0 bg-black/80 w-full h-full z-20 flex justify-center items-center descriptModal"  >
+    <section @click="router.push(returnRoute)" class="fixed top-0 left-0 bottom-0 right-0 bg-black/80 w-full h-full z-30 flex justify-center items-center descriptModal"  >
         <div @click.stop class="wrapper bg-white rounded-md w-[95%] sm:w-4/5 max-w-2xl h-[90%] overflow-hidden">
             <header class="w-full h-14 bg-black" >
                 <ul class="flex items-center h-full px-2">

@@ -37,6 +37,8 @@ onMounted(async () => {
     ville.value = props.shop.ville;
     phoneNumber.value = props.shop.phone_number;
     address.value = props.shop.address;
+    prixSaison.value = props.shop.prixSaison;
+    prixFilm.value = props.shop.prixFilm;
   }
   await globalStore.fetchVilles();
 });
@@ -99,7 +101,7 @@ const createShop = async () => {
 </script>
 
 <template>
-  <div class="fixed top-0 left-0 bottom-0 right-0 bg-black/80 w-full h-full z-20 flex justify-center items-center" @click="emit('closeAddModal')">
+  <div class="fixed top-0 left-0 bottom-0 right-0 bg-black/80 w-full h-full z-30 flex justify-center items-center" @click="emit('closeAddModal')">
     <div @click.stop class="bg-white rounded-md w-[95%] sm:w-4/5 max-w-2xl h-[90%] overflow-hidden flex justify-center items-center p-2 sm:p-4 addShopWrapper relative">
       <form @submit.prevent="createShop" method="post" enctype="multipart/form-data" class="w-full sm:w-4/5 h-full overflow-y-auto overflow-x-hidden " id="createShopForm">
         <h2 class="text-2xl font-bold mb-3 text-center text-back">{{ props.shop ? 'Modifier la Boutique' : 'Créer une Boutique' }}</h2>

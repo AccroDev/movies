@@ -66,7 +66,7 @@ import { useGlobalStore } from '@/stores/GlobalStore';
 </script>
 
 <template>
-    <header :class="{'fixed-header': isScrollingUp === true}" class="header-transition h-20 w-full bg-custom-gradient top-0 z-10 px-1 py-1 flex justify-between items-center relative md:px-2 lg:px-5" >
+    <header :class="{'fixed-header': isScrollingUp === true}" class="header-transition h-20 w-full bg-custom-gradient top-0 z-20 px-1 py-1 flex justify-between items-center relative md:px-2 lg:px-5" >
         <div class="h-full flex justify-start items-center">
             <router-link :to="{name: 'home'}"  class="transition-opacity duration-300 h-full hover:opacity-65 " >
                 <img class="h-full" src="/src/assets/img/logo.png" alt="accrodev movies logo">

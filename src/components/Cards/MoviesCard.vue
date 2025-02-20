@@ -1,7 +1,7 @@
 <script setup>
     import { useMoviesStore } from '@/stores/MoviesStore';
     import { RouterLink } from 'vue-router';
-    import { ref, defineProps, watch, onMounted, computed } from 'vue';
+    import { ref, defineProps, watch, onMounted, computed, toRef } from 'vue';
     import { useGlobalStore } from '../../stores/GlobalStore';
     import axios from 'axios';
     import { useSearchStore } from '@/stores/SearchStore';
@@ -29,8 +29,7 @@
     const PathIsShow = ref(false); 
     const SearchStore = useSearchStore();
     const AuthStore = useAuthStore(); 
-    const path = ref('');
-    const addOrRemove = ref(true);
+    const path = ref(''); 
 
     async function like() {
         let movie = false; 
@@ -64,7 +63,6 @@
             ShopsIsSelected.value = false;
             path.value = '';
             PathIsShow.value = false;
-            addOrRemove.value = true;
         }
     });  
         
@@ -77,35 +75,19 @@
                 ShopsIsSelected.value = true;
                 path.value = shopMovies.find(m => m.id === props.movie.id).path;
                 PathIsShow.value = false;
-                addOrRemove.value = false;
             } else {
                 ShopsIsSelected.value = true;
                 path.value = '';
                 PathIsShow.value = false;
-                addOrRemove.value = true;
             }
         } else {
             ShopsIsSelected.value = false;
             path.value = '';
             PathIsShow.value = false;
-            addOrRemove.value = true;
         }  
     });
 
-    async function addInShop() {
-        const response = await axios.get(`${globalStore.apiHost}/api/addShopMovie`, {
-            params : {
-                movie: props.movie.id,
-                shop:  globalStore.selectedShop.id,// ? globalStore.SelectedSearchShop
-                address : 'computer'
-            }
-        }); 
-        if (response.data.statut) {
-           // await MoviesStore.fetchMoviesInShop(globalStore.SelectedSearchShop,true);
-            await MoviesStore.fetchMoviesInShop(globalStore.selectedShop.id,true);
-        }
-    }  */   
-
+    
    const pathFind = computed(() => {
         const selectedShop = props.pathName === 'description' ? MoviesStore.selectedShop.id : MoviesStore.SelectedSearchShop.id;
         if (MoviesStore.MoviesInShop[selectedShop]) {
@@ -120,6 +102,96 @@
             }
         } 
    })
+  */ 
+ 
+  let showAddRemoveBtn = computed(() => {
+        if (
+            AuthStore.userData && 
+            AuthStore.userData.id &&
+            ( 
+                globalStore.selectedShop !== '' &&  
+                globalStore.selectedShop.auth ===  AuthStore.userData.id &&
+                props.pathName === 'description'
+            ) ||
+            (
+                SearchStore.selectedShop !== '' &&
+                SearchStore.selectedShop.auth === AuthStore.userData.id &&
+                props.pathName === 'searchDescription'
+            )
+        ) {
+
+            // check if this movie is in this shop  
+            var returnValue = 'add';
+            const MoviesInThisShop = MoviesStore.MoviesInShop[props.pathName === 'searchDescription' ? SearchStore.selectedShop.id : globalStore.selectedShop.id]
+            
+            MoviesInThisShop.forEach(movies => { 
+                if (movies.id === props.movie.id) { 
+                    returnValue = "remove" ;  
+                }
+            }); 
+            
+            return returnValue;
+        }
+        return false;
+   });
+
+    let isAddingInShop = ref(false);
+    async function addInShop() {
+        if (isAddingInShop.value) {
+            return;
+        }
+        isAddingInShop.value = true;
+        const selectedShopId = props.pathName === 'searchDescription' ? SearchStore.selectedShop.id : globalStore.selectedShop.id;
+        const response = await axios.get(`${globalStore.apiHost}/api/addShopMovie`, {
+            params : {
+                movie: props.movie.id,
+                shop: selectedShopId,
+                address : 'computer'
+            }
+        }); 
+        if (response.data.statut) { 
+            await MoviesStore.fetchMoviesInShop(selectedShopId ,true);  
+        } 
+        isAddingInShop.value = false;
+    } 
+
+    const showInfosBtn = computed(() => {  
+        if (
+            AuthStore.userData.id && 
+            ((globalStore.selectedShop === '' && props.pathName === 'description') ||
+            (SearchStore.selectedShop === '' && props.pathName === 'searchDescription'))
+        ) {
+            return true;
+        } 
+        return false;
+    })
+
+    const checkIfMovieIsInShop = computed(() => {
+        const allMoviesId = MoviesStore.MoviesInShop[ props.pathName === 'searchDescription' ?  SearchStore.selectedShop.id : globalStore.selectedShop.id]
+
+        let isIn = false;
+        allMoviesId.forEach(movie => {
+            if (movie.id === props.movie.id) {
+                path.value = movie.path ? movie.path : '';
+                isIn = true;
+
+            }
+        });
+        return isIn;
+    }) 
+    
+
+    const showCheckAndPathBtn = computed(() => { 
+        if (
+            ((globalStore.selectedShop && globalStore.selectedShop !== '' && props.pathName === 'description') || 
+            (SearchStore.selectedShop !== '' && props.pathName === 'searchDescription')) &&
+            checkIfMovieIsInShop.value === true
+        ) {
+            return true;
+        } 
+        return false;
+    })
+  
 </script>
 
 <template>
@@ -127,36 +199,35 @@
         <div class="movie-control absolute top-2 left-0 right-0 w-full flex justify-between items-center k h-6 z-10  " >
 
             <!-- if ShopIsSelected and is auth -->
-            <div v-if="false && ShopsIsSelected" class="pl-2 flex items-center justify-start" >
+            <div v-if="showAddRemoveBtn !== false" class="pl-2 flex items-center justify-start" >
 
                 <!-- add this movie on shop selected -->
-                <button @click="addInShop" v-if="addOrRemove" class="bg-[#fdae5c] rounded-full px-2 py-[1px] text-xs flex items-center justify-center" >Ajouter</button>
+                <button @click="addInShop" v-if="showAddRemoveBtn === 'add'" class="bg-[#fdae5c] rounded-full px-2 py-[1px] text-xs flex items-center justify-center" ><span v-if="isAddingInShop" class="spinner w-2 h-2 border-t border-b border-l border-black border-r border-r-transparent rounded-full flex justify-center items-center mx-auto mr-1"></span> Ajouter</button>
 
                 <!-- remove this movie on shop selected -->
-                <button @click="addInShop" v-else class="bg-[#fdae5c] rounded-full px-2 py-[1px] text-xs flex items-center justify-center" >Supp.</button>
+                <button @click="addInShop" v-else class="bg-[#fdae5c] rounded-full px-2 py-[1px] text-xs flex items-center justify-center" ><span v-if="isAddingInShop" class="spinner w-2 h-2 border-t border-b border-l border-black border-r border-r-transparent rounded-full flex justify-center items-center mx-auto mr-1"></span> Supp.</button>
 
-            </div>
-
-            <!-- if ShopIsSelected and is auth -->
-            <div v-if="MoviesStore.selectedShop !== '' || MoviesStore.SelectedSearchShop !== false " class="pl-2 flex items-center justify-start" >
-
-                <!-- add this movie on shop selected -->
-                <button @click="addInShop" v-if="movie.address === ''" class="bg-[#fdae5c] rounded-full px-2 py-[1px] text-xs flex items-center justify-center" >Ajouter</button>
-
-                <!-- remove this movie on shop selected -->
-                <button @click="addInShop" v-else-if="movie.address && movie.address !== ''" class="bg-[#fdae5c] rounded-full px-2 py-[1px] text-xs flex items-center justify-center" >Supp.</button>
-
-            </div>
-
-            <!-- if ShopIsSelected and is auth -->
+            </div> 
+            
             <div class="pr-2 flex justify-end items-center w-full" >
 
-                <!-- show path where found this movies on shop selected
-                <button v-if="(globalStore.selectedShop && globalStore.selectedShop !== '') ||  (ShopsIsSelected && path !== '') " @click="PathIsShow = ShopsIsSelected && path !== '' ? !PathIsShow : PathIsShow" :class="PathIsShow ? 'w-2/4 justify-between' : 'w-6 justify-center'" class="bg-[#fdae5c] rounded-full px-2 py-[1px] text-xs h-6 flex items-center transition-all duration-300 overflow-hidden whitespace-nowrap text-ellipsis"> {{ PathIsShow ? path : '' }} <i class="fas" :class="PathIsShow ? 'fa-plus rotate-45' : !PathIsShow 'fa-check' " ></i> </button> -->
+                <!-- show path where found this movies on shop selected -->
+                <button 
+                    v-if="showCheckAndPathBtn"  
+                    @click="PathIsShow = path !== '' ? !PathIsShow : PathIsShow"
+                    :class="PathIsShow ? 'w-2/4 justify-between' : 'w-6 justify-center'" 
+                    class="bg-[#fdae5c] rounded-full px-2 py-[1px] text-xs h-6 flex items-center transition-all duration-300 overflow-hidden whitespace-nowrap text-ellipsis"> 
+                        {{ PathIsShow ? path : '' }} 
+                        <i 
+                            class="fas" 
+                            :class="PathIsShow ? 'fa-plus rotate-45' : 'fa-check' " >
+                        </i> 
+                
+                </button>
  
 
-                <!-- show my shops and path where found this movies when there is not shops selected
-                <button v-if="AuthStore.userData.id && ShopsIsSelected === false" @click="MoviesStore.setDisplayAddInShop(true,movie.id)" class="bg-[#fdae5c] rounded-full px-2 py-[1px] text-xs w-6 h-6 flex items-center justify-center"> <i class="fas fa-info" ></i> </button> -->
+                <!-- show my shops and path where found this movies when there is not shops selected -->
+                <button v-else-if="showInfosBtn" @click="MoviesStore.setDisplayAddInShop(true,movie.id)" class="bg-[#fdae5c] rounded-full px-2 py-[1px] text-xs w-6 h-6 flex items-center justify-center"> <i class="fas fa-info" ></i> </button>
             </div>
             
         </div>

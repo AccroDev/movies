@@ -23,7 +23,7 @@
     <section class="max-w-[716px] mx-auto" >
         <!-- Bar de Recherche -->
         <SearchBar /> 
-        <SelectShop v-if="authStore.userData.id && authStore.userShops.length > 0" :shops="authStore.userShops" />
+        <SelectShop  />
         <SearchResult /> 
         <SearchOtherResult />  
         <SearchTMDB />  
