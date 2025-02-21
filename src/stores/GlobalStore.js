@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useMoviesStore } from './MoviesStore';
 
 export const useGlobalStore = defineStore('global', () => {
-  const apiHost = ref("http://movies"); //
+  const apiHost = ref(""); //http://movies
   const movies = ref([]);
   const recommanded = ref([]);
   const villes = ref([]);

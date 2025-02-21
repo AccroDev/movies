@@ -1,6 +1,6 @@
 <script setup>
     import { useAuthStore } from '@/stores/AuthStore';
-import { useGlobalStore } from '@/stores/GlobalStore';
+    import { useGlobalStore } from '@/stores/GlobalStore';
     import { ref, onMounted, onUnmounted } from 'vue';
 
     const NavClassAnimation = ref("hiddenNavMenu active");
@@ -63,6 +63,7 @@ import { useGlobalStore } from '@/stores/GlobalStore';
     onUnmounted(() => {
         window.removeEventListener('scroll', handleScroll);
     });
+ 
 </script>
 
 <template>
@@ -72,7 +73,7 @@ import { useGlobalStore } from '@/stores/GlobalStore';
                 <img class="h-full" src="/src/assets/img/logo.png" alt="accrodev movies logo">
             </router-link> 
             <div class="ml-2 headerTitle">
-                <h2 class="text-white  text-3xl accrodev-title">AccroDev</h2>
+                <h2 class="text-white  text-3xl accrodev-title">REFIND</h2>
                 <h4 class="text-white opacity-65 text-base movie-title">Movies</h4>
             </div>
         </div> 
@@ -90,10 +91,10 @@ import { useGlobalStore } from '@/stores/GlobalStore';
 
 
             <!-- user, if is  -->
-            <router-link v-if="AuthStore.userData.id"  :to="{name: 'profil'}" class="block rounded-full h-6 w-6 overflow-hidden mr-4">
+            <router-link v-if="AuthStore.userData.id"  :to="{name: 'profil'}" class="block rounded-full h-6 w-6 overflow-hidden">
                 <img :src="AuthStore.userData.avatarUpdate ? AuthStore.userData.avatar : GlobalStore.apiHost + AuthStore.userData.avatar" class="w-full" alt="">
             </router-link>
-            <div v-else @click="showAuthLik" class="rounded-full w-6 h-6 mr-4 p-1 border border-white flex items-center justify-center cursor-pointer hover:opacity-85  duration-300 relative">
+            <div v-else @click="showAuthLik" class="rounded-full w-6 h-6 p-1 border border-white flex items-center justify-center cursor-pointer hover:opacity-85  duration-300 relative">
                 <i class="fas fa-user text-white text-xs" ></i>
                 <ul :class="classAuthLik" class=" absolute top-7 rounded w-32 p-1 bg-white transition-all duration-100 overflow-hidden" >
                     <router-link :to="{ name : 'login'}" class="block py-1 text-sm pl-1 rounded-sm hover:bg-black/5" >Connexion</router-link>
@@ -107,7 +108,7 @@ import { useGlobalStore } from '@/stores/GlobalStore';
 
 
 
-            <div class="rounded-md bg-btn-yellow px-2 py-1 hidden md:block" >
+            <div class="rounded-md bg-btn-yellow px-2 py-1 hidden md:block ml-2" >
                 <button class="text-white font-semibold">+257 66478279</button>
             </div>
             <div class="md:hidden icon-menu ml-3 mr-1" @click="displayNavMenu">

@@ -39,8 +39,11 @@ function createCarousel() {
 
 <template>
   <!-- sm:w-[620px] md:max-w-[701px] md:w-[684px] -->
-  <div :class="hiddenContainer ? 'hidden' : 'block'" class="w-full mx-auto sm:w-[95%] sm:max-w-[95%] md:max-w-[701px] md:w-[701px]" id="recommandation">
+  <div :class="hiddenContainer && globalStore.recommanded.length > 0  ? 'hidden' : 'block'" class="w-full mx-auto sm:w-[95%] sm:max-w-[95%] md:max-w-[701px] md:w-[701px]" id="recommandation">
     <CarouselCard v-for="movie in globalStore.recommanded" :key="movie.id" :movie="movie" />
+    <div class="h-full min-h-64 md:min-h-[450px] md:h-[450px]" v-if="globalStore.recommanded.length < 1" >
+      lorem
+    </div>
   </div>
 </template>
 

@@ -1,12 +1,12 @@
 <script setup>
-    import { useAuthStore } from '@/stores/AuthStore';
-    import MovieDownload from '../Cards/MovieDownload.vue';
+    import { useAuthStore } from '@/stores/AuthStore'; 
+    import ContainerMovies from '../principal/ContainerMovies.vue';
 
     const authStore = useAuthStore();
 </script>
 
 <template>
-    <div class="w-full flex flex-wrap items-center min-h-full" > 
+    <div class="w-full flex flex-wrap  min-h-full" > 
         <div  v-if="!authStore.userData.id"  class="w-full bg-white overflow-hidden min-h-full flex flex-col justify-between">
             <!-- Header -->
             <div class="bg-red-500 text-white text-center py-6">
@@ -82,8 +82,8 @@
             <div class="p-6 bg-gray-100 text-center text-sm text-gray-600">
                 <p>Abonnez-vous dès aujourd'hui et profitez d'une expérience complète et enrichissante !</p>
             </div>
-        </div> 
-        <MovieDownload v-else /> 
+        </div>  
+        <ContainerMovies v-else />  
     </div>
             
 </template>

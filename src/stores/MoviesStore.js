@@ -63,6 +63,11 @@ export const useMoviesStore = defineStore('movies', () => {
     pathMovieInShop.value[key] = newValue;
   }
 
+  const MoviesInFolder = ref({});
+  function setMoviesInFolder(id, value) {
+    MoviesInFolder.value[id] = value;
+  }
+
   return { 
     pathMovieInShop, 
     setpathMovieInShop, 
@@ -73,6 +78,8 @@ export const useMoviesStore = defineStore('movies', () => {
     fetchingPath, 
     setFetchingPath, 
     fetchMoviesInShop,  
+    MoviesInFolder,
+    setMoviesInFolder,
     //selected of shop
     selectedShop, 
     SelectedSearchShop,
